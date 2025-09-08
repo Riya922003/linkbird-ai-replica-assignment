@@ -1,0 +1,70 @@
+/* Critical CSS for dashboard - loaded inline for faster LCP */
+.dashboard-container {
+  min-height: 100vh;
+  background-color: rgb(248 250 252);
+}
+
+.dashboard-header {
+  height: 4rem;
+  background-color: white;
+  border-bottom: 1px solid rgb(229 231 235);
+  display: flex;
+  align-items: center;
+  padding: 0 1.5rem;
+}
+
+.dashboard-main {
+  padding: 1.5rem;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.dashboard-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.dashboard-card {
+  background-color: white;
+  border-radius: 0.5rem;
+  border: 1px solid rgb(229 231 235);
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+}
+
+.dashboard-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid rgb(229 231 235);
+}
+
+.dashboard-card-content {
+  padding: 1.5rem;
+}
+
+.dashboard-skeleton {
+  background-color: rgb(229 231 235);
+  border-radius: 0.25rem;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
