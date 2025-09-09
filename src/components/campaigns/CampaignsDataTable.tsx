@@ -25,22 +25,26 @@ import {
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { getCampaignsWithStats } from "@/app/actions/campaigns"
+import { getCampaignsWithStats, GetCampaignsResult } from "@/app/actions/campaigns"
 import { Campaign } from "@/components/campaigns/columns"
 import { Search } from "lucide-react"
 
 interface DataTableProps {
   columns: ColumnDef<Campaign, unknown>[]
+  statusFilter?: "Active" | "Paused" | "Draft"
+  initialData?: GetCampaignsResult
 }
 
 export function CampaignsDataTable({
   columns,
+  statusFilter: initialStatusFilter,
+  initialData,
 }: DataTableProps) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
   const [searchTerm, setSearchTerm] = React.useState("")
-  const [statusFilter, setStatusFilter] = React.useState<string>("all")
+  const [statusFilter, setStatusFilter] = React.useState<string>(initialStatusFilter || "all")
 
   // Store totalCount from server
   const totalCountRef = React.useRef<number>(0)

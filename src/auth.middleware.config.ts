@@ -1,8 +1,8 @@
-import type { NextAuthConfig } from "next-auth";
+import { NextAuthOptions } from "next-auth";
 import Google from "next-auth/providers/google";
 
 // Simplified auth config for middleware (Edge Runtime compatible)
-const authConfigForMiddleware: NextAuthConfig = {
+const authConfigForMiddleware: NextAuthOptions = {
   providers: [
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID!,

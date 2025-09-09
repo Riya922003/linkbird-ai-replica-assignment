@@ -1,19 +1,19 @@
 // Virtual scrolling hook for performance optimization
 import { useState, useEffect, useMemo } from 'react';
 
-interface UseVirtualScrollOptions {
-  items: any[];
+interface UseVirtualScrollOptions<T = unknown> {
+  items: T[];
   itemHeight: number;
   containerHeight: number;
   overscan?: number;
 }
 
-export function useVirtualScroll({
+export function useVirtualScroll<T = unknown>({
   items,
   itemHeight,
   containerHeight,
   overscan = 5
-}: UseVirtualScrollOptions) {
+}: UseVirtualScrollOptions<T>) {
   const [scrollTop, setScrollTop] = useState(0);
 
   const visibleItems = useMemo(() => {

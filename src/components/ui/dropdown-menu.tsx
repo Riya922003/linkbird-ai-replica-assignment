@@ -16,6 +16,7 @@ interface DropdownMenuContentProps {
   align?: "start" | "center" | "end"
   children: React.ReactNode
   className?: string
+  forceMount?: boolean
 }
 
 interface DropdownMenuItemProps {
@@ -65,6 +66,7 @@ const DropdownMenuContent: React.FC<DropdownMenuContentProps> = ({
   align = "end",
   children,
   className,
+  forceMount = false,
 }) => {
   const { isOpen, setIsOpen } = React.useContext(DropdownMenuContext)
   const contentRef = React.useRef<HTMLDivElement>(null)
@@ -87,7 +89,7 @@ const DropdownMenuContent: React.FC<DropdownMenuContentProps> = ({
     }
   }, [isOpen, setIsOpen])
 
-  if (!isOpen) return null
+  if (!forceMount && !isOpen) return null
 
   return (
     <div
@@ -131,9 +133,14 @@ const DropdownMenuItem: React.FC<DropdownMenuItemProps> = ({
   )
 }
 
+const DropdownMenuSeparator: React.FC = () => {
+  return <div className="h-px bg-gray-200 my-1" />
+}
+
 export {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
 }

@@ -8,7 +8,7 @@ import { Clock, User, Send, UserCheck } from "lucide-react"
 // Define the Lead type
 export type Lead = {
   id: string
-    name: string
+  name: string
   jobTitle?: string
   campaignName: string
   description?: string

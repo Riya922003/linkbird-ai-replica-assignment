@@ -4,24 +4,9 @@ import { ColumnDef } from "@tanstack/react-table"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Clock, User, Send, UserCheck } from "lucide-react"
+import { Lead } from "@/components/leads/columns"
 
-// Define the Lead type
-export type Lead = {
-  id: string
-  name: string
-  email: string
-  company: string
-  jobTitle?: string
-  campaignName: string
-  description?: string
-  status: "Pending" | "Contacted" | "Responded" | "Converted"
-  activity: string
-  activityLevel?: number // 0-100 for activity bar visualization
-  lastContacted: string | null
-  createdAt: string
-}
-
-export const columns: ColumnDef<Lead>[] = [
+export const columns: ColumnDef<Lead, unknown>[] = [
   {
     accessorKey: "name",
     header: "Lead Name/Contact",

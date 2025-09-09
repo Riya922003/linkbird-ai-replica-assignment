@@ -16,9 +16,9 @@ import { Switch } from "@/components/ui/switch";
 
 
 interface CampaignDetailsPageProps {
-  params: {
+  params: Promise<{
     campaignId: string;
-  };
+  }>;
 }
 
 export async function generateMetadata({ params }: CampaignDetailsPageProps): Promise<Metadata> {

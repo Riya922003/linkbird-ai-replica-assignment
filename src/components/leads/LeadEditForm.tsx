@@ -15,6 +15,9 @@ interface Lead {
   company: string | null
   status: "Pending" | "Contacted" | "Qualified" | "Converted"
   campaignName?: string
+  createdAt: string
+  activity?: string
+  lastContacted?: string | null
 }
 
 interface LeadEditFormProps {
@@ -32,7 +35,8 @@ export function LeadEditForm({ lead, isOpen, onClose, onSave }: LeadEditFormProp
       email: "",
       company: "",
       status: "Pending",
-      campaignName: ""
+      campaignName: "",
+      createdAt: new Date().toISOString()
     }
   })
 

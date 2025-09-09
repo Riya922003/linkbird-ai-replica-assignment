@@ -12,7 +12,7 @@ export interface UseLeadsOptions {
 export function useLeads({ page = 1, limit = 10, enabled = true }: UseLeadsOptions = {}) {
   return useQuery({
     queryKey: ["leads", page, limit],
-    queryFn: () => getLeads({ page, limit }),
+    queryFn: () => getLeads({ pageParam: page, limit }),
     enabled,
     staleTime: 5 * 60 * 1000, // 5 minutes
     refetchOnWindowFocus: false,

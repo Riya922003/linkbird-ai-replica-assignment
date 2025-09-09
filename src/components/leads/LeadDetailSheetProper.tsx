@@ -12,7 +12,7 @@ import {
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Mail, Building, Calendar, Activity } from "lucide-react"
+import { Mail, Calendar, Activity } from "lucide-react"
 
 export function LeadDetailSheetProper() {
   const { isOpen, leadData, onClose } = useLeadSheetStore()
@@ -34,7 +34,7 @@ export function LeadDetailSheetProper() {
               <span className="text-sm font-medium">Status:</span>
               <Badge variant={
                 leadData.status === "Converted" ? "success" :
-                leadData.status === "Qualified" ? "outline" :
+                leadData.status === "Responded" ? "outline" :
                 leadData.status === "Contacted" ? "default" : "secondary"
               }>
                 {leadData.status}
@@ -50,19 +50,7 @@ export function LeadDetailSheetProper() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
-                <div>
-                  <label className="text-sm font-medium text-muted-foreground">Email</label>
-                  <p className="text-sm">{leadData.email}</p>
-                </div>
-                {leadData.company && (
-                  <div>
-                    <label className="text-sm font-medium text-muted-foreground">Company</label>
-                    <p className="text-sm flex items-center gap-2">
-                      <Building className="h-3 w-3" />
-                      {leadData.company}
-                    </p>
-                  </div>
-                )}
+                {/* Contact information can be added here if needed in the future */}
               </CardContent>
             </Card>
 
