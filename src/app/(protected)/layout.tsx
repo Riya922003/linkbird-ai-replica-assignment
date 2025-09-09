@@ -50,7 +50,7 @@ export default function ProtectedLayout({
       <div className="flex-1 transition-all duration-300 ease-in-out overflow-hidden relative">
         {/* Top Right Buttons */}
         {session && (
-          <div className="absolute top-4 right-6 z-10 flex items-center gap-3">
+          <div className="absolute top-4 right-4 sm:right-6 z-20 flex items-center gap-2 sm:gap-3">
             {/* Create Lead Button - Only show on leads page */}
             {isLeadsPage && (
               <Button 
@@ -61,7 +61,7 @@ export default function ProtectedLayout({
                 <div className="flex items-center justify-center w-4 h-4 bg-white rounded-full">
                   <Plus className="h-3 w-3 text-blue-600" />
                 </div>
-                Create Lead
+                <span className="hidden sm:inline">Create Lead</span>
               </Button>
             )}
 
@@ -75,7 +75,7 @@ export default function ProtectedLayout({
                 <div className="flex items-center justify-center w-4 h-4 bg-white rounded-full">
                   <Plus className="h-3 w-3 text-blue-600" />
                 </div>
-                Create Campaign
+                <span className="hidden sm:inline">Create Campaign</span>
               </Button>
             )}
             
@@ -87,7 +87,7 @@ export default function ProtectedLayout({
               className="flex items-center gap-2 bg-white hover:bg-red-50 text-red-600 border-red-200 hover:border-red-300"
             >
               <LogOut className="h-4 w-4" />
-              Logout
+              <span className="hidden sm:inline">Logout</span>
             </Button>
           </div>
         )}

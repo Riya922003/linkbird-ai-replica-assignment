@@ -53,8 +53,9 @@ const authConfig: NextAuthOptions = {
   },
   secret: process.env.AUTH_SECRET,
   pages: {
-    signIn: "/login", // Redirect to this page if user is not authenticated
-    signOut: "/login", // Redirect to this page after user signs out
+  signIn: "/login", // Redirect to this page if user is not authenticated
+  signOut: "/login", // Redirect to this page after user signs out
+  error: "/login", // Redirect to login page for all errors
   },
 };
 

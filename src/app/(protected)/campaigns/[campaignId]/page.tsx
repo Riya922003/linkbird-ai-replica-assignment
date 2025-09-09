@@ -67,20 +67,22 @@ export default async function CampaignDetailsPage({ params }: CampaignDetailsPag
   return (
     <div className="flex flex-col h-full max-h-screen overflow-hidden">
       {/* Header Section */}
-      <div className="flex items-center justify-between mb-6 flex-shrink-0">
-        <div>
-          <h1 className="text-2xl font-semibold text-gray-900">{campaign.name}</h1>
+      <div className="flex items-center justify-between mb-6 flex-shrink-0 pr-4 sm:pr-8 md:pr-32">
+        <div className="flex-1 min-w-0 pr-4">
+          <h1 className="text-2xl font-semibold text-gray-900 truncate">{campaign.name}</h1>
           <p className="text-sm text-gray-500 mt-1">Manage and track your campaign performance</p>
         </div>
-        <Badge className={statusBadgeClass}>
-          <Activity className="h-3 w-3 mr-1" />
-          {campaign.status}
-        </Badge>
+        <div className="flex-shrink-0">
+          <Badge className={statusBadgeClass}>
+            <Activity className="h-3 w-3 mr-1" />
+            {campaign.status}
+          </Badge>
+        </div>
       </div>
 
       {/* Tabs Navigation */}
       <Tabs defaultValue="overview" className="flex flex-col h-full overflow-hidden">
-        <TabsList className="grid w-full grid-cols-4 mb-6 sticky top-0 bg-white z-10">
+        <TabsList className="grid w-full grid-cols-4 mb-6 sticky top-0 bg-white z-10 mr-4 sm:mr-8 md:mr-32">
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="leads">Leads</TabsTrigger>
           <TabsTrigger value="sequence">Sequence</TabsTrigger>
