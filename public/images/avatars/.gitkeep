@@ -1,0 +1,20 @@
+# Avatar Images
+
+Place user profile pictures and avatar images here.
+
+## Current Files
+- `person.jpg` - Default person avatar used in dashboard components
+
+## Naming Convention
+- `default-avatar.png` - Default placeholder avatar
+- `person.jpg` - Generic person avatar for dashboard
+- `user-{id}.jpg` - User-specific avatars
+- `team-member-{name}.jpg` - Team member photos
+
+## Recommended Sizes
+- Profile avatars: 128x128px or 256x256px
+- Thumbnail avatars: 40x40px or 64x64px
+
+## Dashboard Usage
+- LinkedIn Accounts Card: Uses `person.jpg` at 24x24px
+- Recent Activity Card: Uses `person.jpg` at 32x32px

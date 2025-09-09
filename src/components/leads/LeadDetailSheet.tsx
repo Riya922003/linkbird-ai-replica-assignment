@@ -1,17 +1,15 @@
 "use client"
 
 import * as React from "react"
-import Image from "next/image"
 import { useLeadSheetStore } from "@/store/lead-sheet-store"
-import { useLeadManagementStore } from "@/store/lead-management-store"
 import {
   Sheet,
   SheetContent,
-  SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
   Accordion,
   AccordionContent,
@@ -23,20 +21,12 @@ import {
   CheckCircle, 
   MessageCircle, 
   Target,
-  ChevronDown,
-  X
+  X,
+  Trash2
 } from "lucide-react"
 
 export function LeadDetailSheet() {
   const { isOpen, leadData, onClose } = useLeadSheetStore()
-  const { openEditForm } = useLeadManagementStore()
-
-  const handleEditLead = () => {
-    if (leadData) {
-      openEditForm(leadData)
-      onClose() // Close the detail sheet when opening edit form
-    }
-  }
 
   // Generate initials for avatar fallback
   const getInitials = (name: string) => {
@@ -50,87 +40,100 @@ export function LeadDetailSheet() {
 
   return (
     <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <SheetContent className="w-96 p-0">
+      <SheetContent 
+        className="w-96 p-0 [&>button]:hidden sm:max-w-md" 
+        side="right"
+      >
         <SheetTitle className="sr-only">
           {leadData ? `Lead Profile for ${leadData.name}` : "Lead Profile"}
         </SheetTitle>
-        {leadData && (
-          <div className="h-full flex flex-col">
-            {/* Header Section */}
-            <div className="p-6 border-b">
-              {/* Close Button */}
-              <div className="flex justify-between items-start mb-4">
-                <h2 className="text-lg font-semibold">Lead Profile</h2>
-                <Button variant="ghost" size="sm" onClick={onClose}>
-                  <X className="h-4 w-4" />
-                </Button>
-              </div>
-
-              {/* Main Header with Avatar and Info */}
-              <div className="flex items-start gap-4 mb-4">
-                {/* Avatar */}
-                <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center text-blue-800 font-semibold text-lg">
-                  {getInitials(leadData.name)}
+        {leadData ? (
+          <div className="h-full flex flex-col overflow-hidden">
+            {/* Header Section - Enclosed in a box */}
+            <div className="mx-4 mt-4 mb-2 border border-gray-200 rounded-lg bg-white shadow-sm">
+              <div className="p-3">
+                {/* Close Button and Delete Button */}
+                <div className="flex justify-between items-start mb-3">
+                  <h2 className="text-lg font-semibold">Lead Profile</h2>
+                  <div className="flex gap-1">
+                    <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-red-50">
+                      <Trash2 className="h-4 w-4 text-red-500" />
+                    </Button>
+                    <Button variant="ghost" size="sm" className="h-8 w-8 p-0" onClick={onClose}>
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </div>
                 </div>
 
-                {/* Name and Title */}
-                <div className="flex-1">
-                  <h1 className="text-xl font-bold text-gray-900 mb-1">
-                    {leadData.name}
-                  </h1>
-                  <p className="text-gray-600 text-sm mb-3">
-                    {leadData.jobTitle || leadData.company || "Professional"}
-                  </p>
+                {/* Main Header with Avatar and Info */}
+                <div className="flex items-start gap-3">
+                  {/* Avatar */}
+                  <Avatar className="w-12 h-12 flex-shrink-0">
+                    <AvatarImage src="/images/avatars/person.jpg" alt={leadData.name} />
+                    <AvatarFallback className="bg-blue-100 text-blue-800 font-semibold text-sm">
+                      {getInitials(leadData.name)}
+                    </AvatarFallback>
+                  </Avatar>
 
-                  {/* Campaign and Status Row */}
-                  <div className="flex items-center gap-4">
-                    <div className="flex items-center gap-2">
-                      <Target className="h-4 w-4 text-gray-400" />
-                      <span className="text-sm text-gray-600">
-                        {leadData.campaignName}
-                      </span>
+                  {/* Name and Title */}
+                  <div className="flex-1 min-w-0">
+                    <h1 className="text-lg font-bold text-gray-900 mb-0.5">
+                      {leadData.name}
+                    </h1>
+                    <p className="text-gray-600 text-sm mb-2">
+                      {leadData.jobTitle || "Professional"}
+                    </p>
+
+                    {/* Campaign and Status Row - Shifted left under Professional */}
+                    <div className="flex items-center gap-3 flex-wrap">
+                      <div className="flex items-center gap-1.5">
+                        <Target className="h-3.5 w-3.5 text-gray-400" />
+                        <span className="text-sm text-gray-600">
+                          {leadData.campaignName}
+                        </span>
+                      </div>
+                      <Badge 
+                        className={`
+                          ${leadData.status === "Pending" ? "bg-purple-50 text-purple-700 border-purple-200" : ""}
+                          ${leadData.status === "Contacted" ? "bg-orange-50 text-orange-700 border-orange-200" : ""}
+                          ${leadData.status === "Responded" ? "bg-blue-50 text-blue-700 border-blue-200" : ""}
+                          ${leadData.status === "Converted" ? "bg-green-50 text-green-700 border-green-200" : ""}
+                          text-xs font-medium border rounded-full px-2 py-1
+                        `}
+                      >
+                        {leadData.status}
+                      </Badge>
                     </div>
-                    <Badge 
-                      className={`
-                        ${leadData.status === "Pending Approval" ? "bg-purple-50 text-purple-700 border-purple-200" : ""}
-                        ${leadData.status === "Sent 7 mins ago" ? "bg-orange-50 text-orange-700 border-orange-200" : ""}
-                        ${leadData.status === "Followup" ? "bg-blue-50 text-blue-700 border-blue-200" : ""}
-                        ${leadData.status === "Do Not Contact" ? "bg-gray-50 text-gray-700 border-gray-200" : ""}
-                        text-xs font-medium border rounded-full
-                      `}
-                    >
-                      {leadData.status}
-                    </Badge>
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/* Content Section */}
-            <div className="flex-1 overflow-auto">
-              {/* Additional Profile Info Accordion */}
-              <div className="p-6 border-b">
+              {/* Additional Profile Info Accordion - Inside the box */}
+              <div className="border-t border-gray-100 px-3 py-2">
                 <Accordion type="single" collapsible>
                   <AccordionItem value="profile-info" className="border-none">
-                    <AccordionTrigger className="text-sm font-medium hover:no-underline py-2">
+                    <AccordionTrigger className="text-sm font-medium hover:no-underline py-2 px-0">
                       Additional Profile Info
-                      <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200" />
                     </AccordionTrigger>
-                    <AccordionContent className="pt-2">
-                      <div className="space-y-2 text-sm text-gray-600">
-                        <p><strong>Email:</strong> {leadData.email}</p>
-                        {leadData.company && (
-                          <p><strong>Company:</strong> {leadData.company}</p>
-                        )}
+                    <AccordionContent className="pt-1 pb-2">
+                      <div className="space-y-1.5 text-sm text-gray-600">
+                        <p><strong>Name:</strong> {leadData.name}</p>
+                        <p><strong>Email:</strong> reyansh.shah@example.com</p>
+                        <p><strong>Company:</strong> TechCorp Solutions</p>
+                        <p><strong>Phone:</strong> +1 (555) 123-4567</p>
+                        <p><strong>Location:</strong> San Francisco, CA</p>
                         <p><strong>Created:</strong> {new Date(leadData.createdAt).toLocaleDateString()}</p>
                       </div>
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
               </div>
+            </div>
 
+            {/* Content Section */}
+            <div className="flex-1 overflow-auto">
               {/* Timeline Section */}
-              <div className="p-6">
+              <div className="p-4">
                 <div className="space-y-6">
                   {/* Timeline Item 1 - Invitation Request */}
                   <div className="flex gap-4">
@@ -192,6 +195,10 @@ export function LeadDetailSheet() {
                 </div>
               </div>
             </div>
+          </div>
+        ) : (
+          <div className="flex items-center justify-center h-full">
+            <p className="text-gray-500">No lead data available</p>
           </div>
         )}
       </SheetContent>

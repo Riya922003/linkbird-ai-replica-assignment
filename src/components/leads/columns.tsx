@@ -2,15 +2,13 @@
 
 import { ColumnDef } from "@tanstack/react-table"
 import { Badge } from "@/components/ui/badge"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Clock, User, Send, UserCheck } from "lucide-react"
 
 // Define the Lead type
 export type Lead = {
   id: string
-  name: string
-  email: string
-  company: string
+    name: string
   jobTitle?: string
   campaignName: string
   description?: string
@@ -41,6 +39,7 @@ export const columns: ColumnDef<Lead>[] = [
       return (
         <div className="flex items-center gap-3">
           <Avatar className="h-10 w-10">
+            <AvatarImage src="/images/avatars/person.jpg" alt={lead.name} />
             <AvatarFallback className="text-sm font-medium bg-blue-100 text-blue-800">
               {getInitials(lead.name)}
             </AvatarFallback>
@@ -55,25 +54,52 @@ export const columns: ColumnDef<Lead>[] = [
       )
     },
   },
-  {
-    accessorKey: "email",
-    header: "Email",
-    cell: ({ row }) => {
-      return <span className="text-gray-700">{row.getValue("email")}</span>
-    },
-  },
-  {
-    accessorKey: "company",
-    header: "Company",
-    cell: ({ row }) => {
-      return <span className="font-medium">{row.getValue("company") || "—"}</span>
-    },
-  },
+  // ...existing code...
   {
     accessorKey: "campaignName",
     header: "Campaign Name",
     cell: ({ row }) => {
       return <span className="font-medium">{row.getValue("campaignName")}</span>
+    },
+  },
+  {
+    accessorKey: "activity",
+    header: "Activity",
+    cell: ({ row }) => {
+      const activityLevel = row.original.activityLevel || 0
+      const status = row.original.status
+      
+      // Get the color based on status
+      const getActivityColor = (status: string) => {
+        switch (status) {
+          case "Pending": return "bg-yellow-400"      // Yellow for pending
+          case "Contacted": return "bg-blue-400"      // Blue for contacted
+          case "Responded": return "bg-purple-400"    // Purple for responded
+          case "Converted": return "bg-green-400"     // Green for converted
+          default: return "bg-yellow-400"             // Default to yellow
+        }
+      }
+      
+      // Create activity level bars
+      const bars = Array.from({ length: 5 }, (_, index) => {
+        const isActive = index < Math.ceil(activityLevel / 20) // Convert 0-100 to 0-5 bars
+        return (
+          <div
+            key={index}
+            className={`w-1 h-4 rounded-sm ${
+              isActive ? getActivityColor(status) : 'bg-gray-200'
+            }`}
+          />
+        )
+      })
+      
+      return (
+        <div className="flex items-center gap-2">
+          <div className="flex gap-0.5">
+            {bars}
+          </div>
+        </div>
+      )
     },
   },
   {
@@ -133,26 +159,6 @@ export const columns: ColumnDef<Lead>[] = [
           {config.label}
         </Badge>
       )
-    },
-  },
-  {
-    accessorKey: "lastContacted",
-    header: "Last Contact Date",
-    cell: ({ row }) => {
-      const lastContacted = row.getValue("lastContacted") as string | null
-      
-      if (!lastContacted) {
-        return <span className="text-gray-400">Never</span>
-      }
-      
-      const date = new Date(lastContacted)
-      const formattedDate = date.toLocaleDateString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric'
-      })
-      
-      return <span className="text-gray-700">{formattedDate}</span>
     },
   },
 ]

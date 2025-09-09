@@ -36,7 +36,7 @@ export const LinkedInAccountsCard = () => {
               <div className="flex items-center gap-2 flex-1 min-w-0">
                 <div className="w-6 h-6 rounded-full overflow-hidden flex-shrink-0">
                   <Image 
-                    src="https://placehold.co/32x32" 
+                    src="/images/avatars/person.jpg" 
                     alt={account.name}
                     width={24}
                     height={24}

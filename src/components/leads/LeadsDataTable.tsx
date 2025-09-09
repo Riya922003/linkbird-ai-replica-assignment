@@ -76,11 +76,20 @@ export function LeadsDataTable({
       
       // Transform database leads to match the UI format
       return result.leads.map((lead) => {
+        // Generate activity levels based on status
+        const getActivityLevel = (status: string) => {
+          switch (status) {
+            case "Contacted": return 60  // 3 out of 5 bars (3 * 20 = 60)
+            case "Responded": return 40  // 2 out of 5 bars (2 * 20 = 40)
+            case "Pending": return 20    // 1 out of 5 bars (1 * 20 = 20)
+            case "Converted": return 100 // 5 out of 5 bars (5 * 20 = 100)
+            default: return 20           // Default to 1 bar for any other status
+          }
+        }
+
         return {
           id: lead.id,
           name: lead.name,
-          email: lead.email,
-          company: lead.company || "",
           jobTitle: lead.jobTitle || "", // Use actual jobTitle from database
           campaignName: lead.campaign?.name || "Unknown Campaign",
           description: lead.description || "",
@@ -88,7 +97,7 @@ export function LeadsDataTable({
           activity: lead.lastContacted 
             ? `Last contacted ${new Date(lead.lastContacted).toLocaleDateString()}`
             : "No activity yet",
-          activityLevel: 0, // TODO: Calculate based on actual activity data
+          activityLevel: getActivityLevel(lead.status),
           lastContacted: lead.lastContacted?.toISOString() || null,
           createdAt: lead.createdAt.toISOString(),
         }
@@ -120,8 +129,6 @@ export function LeadsDataTable({
     return allLeads.filter(lead => {
       const matchesSearch = searchTerm === "" || 
         lead.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        lead.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        lead.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
         lead.campaignName.toLowerCase().includes(searchTerm.toLowerCase())
       
       const matchesStatus = statusFilter === "all" || lead.status === statusFilter
@@ -158,7 +165,7 @@ export function LeadsDataTable({
   // Handle loading and error states
   if (isLoading && allLeads.length === 0) {
     return (
-      <Card className="h-full flex flex-col">
+      <Card className="h-full flex flex-col shadow-lg border-gray-200">
         {/* Search and Filter Header */}
         <div className="p-4 border-b border-gray-200 flex-shrink-0">
           <div className="flex items-center gap-4">
@@ -193,7 +200,7 @@ export function LeadsDataTable({
 
   if (error && allLeads.length === 0) {
     return (
-      <Card className="h-full flex flex-col p-6">
+      <Card className="h-full flex flex-col p-6 shadow-lg border-gray-200">
         <div className="flex items-center justify-center h-32">
           <div className="text-destructive">Error loading leads: {error.message}</div>
         </div>
@@ -202,7 +209,7 @@ export function LeadsDataTable({
   }
 
     return (
-    <Card className="h-full flex flex-col">
+    <Card className="h-full flex flex-col shadow-lg border-gray-200">
       {/* Search and Filter Header */}
       <div className="p-4 border-b border-gray-200 flex-shrink-0">
         <div className="flex items-center gap-4">

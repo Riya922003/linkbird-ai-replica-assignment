@@ -1,0 +1,13 @@
+# Banner Images
+
+Place hero images, promotional banners, and background images here.
+
+## Naming Convention
+- `hero-banner.jpg` - Main hero image
+- `dashboard-bg.png` - Dashboard background
+- `campaign-banner-{type}.jpg` - Campaign-specific banners
+
+## Recommended Sizes
+- Hero banners: 1920x1080px or 1600x900px
+- Section backgrounds: 1200x600px
+- Card banners: 400x200px

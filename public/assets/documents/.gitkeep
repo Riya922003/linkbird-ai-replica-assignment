@@ -1,0 +1,22 @@
+# Document Assets
+
+Place downloadable files, PDFs, and other documents here.
+
+## Naming Convention
+- `terms-of-service.pdf`
+- `privacy-policy.pdf`
+- `user-manual.pdf`
+- `campaign-template.xlsx`
+
+## File Types
+- PDFs for documentation
+- Excel/CSV files for templates
+- ZIP files for downloads
+- Any other downloadable content
+
+## Usage
+```jsx
+<a href="/assets/documents/terms-of-service.pdf" download>
+  Download Terms of Service
+</a>
+```

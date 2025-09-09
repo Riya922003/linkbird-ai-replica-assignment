@@ -2,7 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table"
 import { Badge } from "@/components/ui/badge"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Clock, User, Send, UserCheck } from "lucide-react"
 
 // Define the Lead type
@@ -41,6 +41,7 @@ export const columns: ColumnDef<Lead>[] = [
       return (
         <div className="flex items-center gap-3">
           <Avatar className="h-10 w-10">
+            <AvatarImage src="/images/avatars/person.jpg" alt={lead.name} />
             <AvatarFallback className="text-sm font-medium bg-blue-100 text-blue-800">
               {getInitials(lead.name)}
             </AvatarFallback>

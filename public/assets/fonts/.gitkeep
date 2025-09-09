@@ -1,0 +1,23 @@
+# Font Assets
+
+Place custom font files here if not using web fonts.
+
+## Naming Convention
+- `{font-name}-regular.woff2`
+- `{font-name}-bold.woff2`
+- `{font-name}-italic.woff2`
+
+## Recommended Formats
+- Use WOFF2 for modern browsers
+- Include WOFF as fallback
+- Include TTF/OTF if needed for specific use cases
+
+## Usage
+```css
+@font-face {
+  font-family: 'CustomFont';
+  src: url('/assets/fonts/custom-font-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+```

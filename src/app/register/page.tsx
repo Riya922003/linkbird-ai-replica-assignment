@@ -102,21 +102,34 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="flex min-h-screen w-full items-center justify-center bg-gray-100 dark:bg-gray-950">
-      <Card className="w-full max-w-lg">
-        <CardHeader>
-          <Link
-            href="/login"
-            className="text-sm text-blue-500 hover:underline"
-          >
-            &larr; Back
-          </Link>
-          <CardTitle className="pt-4 text-2xl">Register with email</CardTitle>
-          <CardDescription>
-            Register using your email address.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
+    <div className="relative min-h-screen w-full overflow-hidden">
+      {/* Blurred Dashboard Background */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat brightness-75"
+        style={{
+          backgroundImage: "url('/images/dashboard-bg (2).png')",
+        }}
+      />
+      
+      {/* Overlay for additional blur and darkening effect */}
+      <div className="absolute inset-0 bg-black/30 backdrop-blur-xl" />
+      
+      {/* Content */}
+      <div className="relative z-10 flex min-h-screen w-full items-center justify-center p-4">
+        <Card className="w-full max-w-lg backdrop-blur-md bg-white/90 shadow-2xl border-white/20">
+          <CardHeader>
+            <Link
+              href="/login"
+              className="text-sm text-blue-500 hover:underline"
+            >
+              &larr; Back
+            </Link>
+            <CardTitle className="pt-4 text-2xl">Register with email</CardTitle>
+            <CardDescription>
+              Register using your email address.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <div className="flex space-x-4">
@@ -211,6 +224,7 @@ export default function RegisterPage() {
           </div>
         </CardContent>
       </Card>
+      </div>
     </div>
   );
 }

@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, Clock, User } from "lucide-react";
+import Image from "next/image";
 
 interface RecentActivityItem {
   id: string
@@ -75,10 +76,14 @@ export const RecentActivityCard = ({ recentActivity = [] }: RecentActivityCardPr
               displayActivity.map((activity) => (
                 <div key={activity.id} className="grid grid-cols-3 gap-4 items-center border-t py-2">
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center">
-                      <span className="text-xs font-medium text-gray-600">
-                        {activity.name.charAt(0).toUpperCase()}
-                      </span>
+                    <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
+                      <Image 
+                        src="/images/avatars/person.jpg" 
+                        alt={activity.name}
+                        width={32}
+                        height={32}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
                     <div>
                       <div className="text-sm font-medium">{activity.name}</div>

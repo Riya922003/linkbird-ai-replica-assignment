@@ -2,14 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useSession, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useEffect } from "react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
@@ -28,7 +28,6 @@ import {
   Heart,
   Bookmark,
   Calendar,
-  LogOut,
 } from "lucide-react";
 import { useSidebarStore } from "@/store/sidebar-store";
 
@@ -138,17 +137,40 @@ export function Sidebar() {
       <div className="p-4 border-b border-gray-200">
         <div className="flex items-center justify-between">
           {!isCollapsed && (
-            <h1 className="text-xl font-bold text-gray-900">LinkBird</h1>
+            <div className="flex items-center gap-3">
+              <Image 
+                src="/images/logos/linkbird-logo.jpg" 
+                alt="LinkBird Logo"
+                width={32}
+                height={32}
+                className="flex-shrink-0"
+              />
+              <h1 className="text-xl font-bold">
+                <span className="text-black">Link</span>
+                <span className="text-blue-600">Bird</span>
+              </h1>
+            </div>
+          )}
+          {isCollapsed && (
+            <div className="flex justify-center w-full">
+              <Image 
+                src="/images/logos/linkbird-logo.jpg" 
+                alt="LinkBird Logo"
+                width={28}
+                height={28}
+                className="flex-shrink-0"
+              />
+            </div>
           )}
           <Button
             variant="ghost"
             size="icon"
             onClick={toggleSidebar}
-            className="h-8 w-8"
+            className="h-6 w-6 p-1"
           >
             <ChevronLeft
               className={cn(
-                "h-4 w-4 transition-transform duration-200",
+                "h-5 w-5 transition-transform duration-200",
                 isCollapsed && "rotate-180"
               )}
             />
@@ -173,7 +195,7 @@ export function Sidebar() {
         </Button>
       </div>
 
-      <nav className="flex-1 p-4 space-y-6 overflow-y-auto min-h-0">
+      <nav className="flex-1 p-4 space-y-6 overflow-y-auto min-h-0 hide-scrollbar">
         {navigationItems.map((section) => (
           <div key={section.title}>
             {!isCollapsed && (
@@ -266,7 +288,7 @@ export function Sidebar() {
           <DropdownMenuTrigger asChild>
             <div className="flex items-center gap-3 cursor-pointer p-2 rounded-md hover:bg-gray-100">
               <Avatar className="h-10 w-10">
-                <AvatarImage src={session?.user?.image || ""} alt={session?.user?.name || ""} />
+                <AvatarImage src={session?.user?.image || "/images/avatars/person.jpg"} alt={session?.user?.name || ""} />
                 <AvatarFallback className="bg-blue-100 text-blue-700">
                   {session?.user?.name
                     ? session.user.name
@@ -291,13 +313,14 @@ export function Sidebar() {
           </DropdownMenuTrigger>
 
           <DropdownMenuContent align="end" className="w-56">
-            <DropdownMenuItem 
-              onClick={() => signOut({ callbackUrl: "/login" })}
-              className="cursor-pointer text-red-600 focus:text-red-600 focus:bg-red-50"
-            >
-              <LogOut className="h-4 w-4 mr-2" />
-              Logout
-            </DropdownMenuItem>
+            <div className="flex items-center justify-start gap-2 p-2">
+              <div className="flex flex-col space-y-1 leading-none">
+                <p className="font-medium text-sm">{session?.user?.name || "User"}</p>
+                <p className="text-xs text-muted-foreground truncate">
+                  {session?.user?.email || "user@example.com"}
+                </p>
+              </div>
+            </div>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

@@ -1,0 +1,14 @@
+# Logo Images
+
+Place company logos, brand assets, and app logos here.
+
+## Naming Convention
+- `linkbird-logo.svg` - Main app logo
+- `company-logo-light.png` - Light theme version
+- `company-logo-dark.png` - Dark theme version
+- `favicon.ico` - Favicon (also copy to root public folder)
+
+## Recommended Formats
+- Use SVG for scalable logos
+- PNG for logos with complex graphics
+- Multiple sizes for different use cases

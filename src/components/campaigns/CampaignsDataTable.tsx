@@ -148,7 +148,7 @@ export function CampaignsDataTable({
   // Handle loading and error states
   if (isLoading && allCampaigns.length === 0) {
     return (
-      <Card className="h-full flex flex-col">
+      <Card className="h-full flex flex-col shadow-lg border-gray-200">
         {/* Search and Filter Header */}
         <div className="p-4 border-b border-gray-200 flex-shrink-0">
           <div className="flex items-center gap-4">
@@ -183,7 +183,7 @@ export function CampaignsDataTable({
 
   if (error && allCampaigns.length === 0) {
     return (
-      <Card className="h-full flex flex-col p-6">
+      <Card className="h-full flex flex-col p-6 shadow-lg border-gray-200">
         <div className="flex items-center justify-center h-32">
           <div className="text-destructive">Error loading campaigns: {error.message}</div>
         </div>
@@ -192,7 +192,7 @@ export function CampaignsDataTable({
   }
 
     return (
-    <Card className="h-full flex flex-col">
+    <Card className="h-full flex flex-col shadow-lg border-gray-200">
       {/* Search and Filter Header */}
       <div className="p-4 border-b border-gray-200 flex-shrink-0">
         <div className="flex items-center justify-between">

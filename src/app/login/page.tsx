@@ -49,26 +49,39 @@ const EmailIcon = () => (
 
 export default function LoginPage() {
   return (
-    <div className="flex min-h-screen w-full items-center justify-center bg-gray-100 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] dark:bg-gray-900 dark:bg-[radial-gradient(#374151_1px,transparent_1px)]">
-      <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
-          <CardTitle className="text-2xl">Continue with an account</CardTitle>
-          <CardDescription>
-            You must log in or register to continue
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
+    <div className="relative min-h-screen w-full overflow-hidden">
+      {/* Blurred Dashboard Background */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat brightness-75"
+        style={{
+          backgroundImage: "url('/images/dashboard-bg (2).png')",
+        }}
+      />
+      
+      {/* Overlay for additional blur and darkening effect */}
+      <div className="absolute inset-0 bg-black/30 backdrop-blur-xl" />
+      
+      {/* Content */}
+      <div className="relative z-10 flex min-h-screen w-full items-center justify-center p-4">
+        <Card className="w-full max-w-md backdrop-blur-md bg-white/90 shadow-2xl border-white/20">
+          <CardHeader className="text-center">
+            <CardTitle className="text-2xl">Continue with an account</CardTitle>
+            <CardDescription>
+              You must log in or register to continue
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
           <div className="space-y-4">
             <Button 
               variant="outline" 
-              className="w-full"
+              className="w-full bg-white/80 hover:bg-white/90 backdrop-blur-sm border-white/20"
               onClick={() => signIn('google', { callbackUrl: "/dashboard" })}
             >
               <GoogleIcon />
               Continue with Google
             </Button>
             <Link href="/login/email" className="block w-full">
-              <Button className="w-full">
+              <Button className="w-full bg-blue-600/90 hover:bg-blue-700/90 backdrop-blur-sm">
                 <EmailIcon />
                 Login with Email
               </Button>
@@ -84,6 +97,7 @@ export default function LoginPage() {
           </p>
         </CardContent>
       </Card>
+      </div>
     </div>
   );
 }
