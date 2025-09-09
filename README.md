@@ -1,6 +1,6 @@
 # LinkBird AI Replica - Lead Management Dashboard
 
-A sophisticated lead management and campaign tracking application built with modern web technologies. This replica demonstrates enterprise-level architecture with optimized performance, featuring a comprehensive dashboard for managing campaigns, leads, and user analytics.  deployement-link --- <a href="https://linkbird-ai-replica-assignment.vercel.app/login"></a>
+A sophisticated lead management and campaign tracking application built with modern web technologies. This replica demonstrates enterprise-level architecture with optimized performance, featuring a comprehensive dashboard for managing campaigns, leads, and user analytics.  deployement---- <a href="https://linkbird-ai-replica-assignment.vercel.app/login">Link</a>
 
 ## 🚀 Features
 
